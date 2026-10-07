@@ -40,35 +40,35 @@
     };
 
     function launchWhatsAppSignup() {
+    FB.login(
+      function (response) {
+        if (response.authResponse) {
+          const code = response.authResponse.code;
 
-      FB.login(
-        function (response) {
+          console.log('Authorization code:', code);
 
-          if (response.authResponse) {
+          document.getElementById('status').innerText =
+            'Autorização concluída com sucesso.';
+        } else {
+          console.log('Embedded Signup cancelado ou não concluído.');
 
-            const code = response.authResponse.code;
-
-            console.log('Authorization code:', code);
-
-            document.getElementById('status').innerText =
-              'Autorização concluída com sucesso.';
-
-          } else {
-
-            console.log('Embedded Signup cancelado ou não concluído.');
-
-            document.getElementById('status').innerText =
-              'Processo não concluído.';
-          }
-
-        },
-        {
-          config_id: '2361153174625723',
-          response_type: 'code',
-          override_default_response_type: true
+          document.getElementById('status').innerText =
+            'Processo não concluído.';
         }
-      );
-    }
+      },
+      {
+        config_id: '2361153174625723',
+        response_type: 'code',
+        override_default_response_type: true,
+
+        extras: {
+          setup: {},
+          featureType: 'whatsapp_business_app_onboarding',
+          sessionInfoVersion: '3'
+        }
+      }
+    );
+  }
   </script>
 
   <script
