@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>B2T Solutions</title>
 </head>
+
 <body>
   <main>
     <h1>B2T Solutions</h1>
@@ -14,18 +15,68 @@
       integrações, automações e suporte técnico.
     </p>
 
-    <h2>Serviços</h2>
-    <ul>
-      <li>Desenvolvimento de sistemas</li>
-      <li>Desenvolvimento de APIs e integrações</li>
-      <li>Automação de processos</li>
-      <li>Integrações com WhatsApp Business</li>
-      <li>Manutenção e evolução de sistemas</li>
-      <li>Suporte técnico</li>
-    </ul>
+    <h2>Integração WhatsApp Business</h2>
 
-    <h2>Contato</h2>
-    <p>B2T Solutions - Brasil</p>
+    <p>
+      Utilize o botão abaixo para conectar sua conta do
+      WhatsApp Business à integração.
+    </p>
+
+    <button onclick="launchWhatsAppSignup()">
+      Conectar WhatsApp Business
+    </button>
+
+    <p id="status"></p>
   </main>
+
+  <script>
+    window.fbAsyncInit = function () {
+      FB.init({
+        appId: '1083615924044365',
+        autoLogAppEvents: true,
+        xfbml: true,
+        version: 'v26.0'
+      });
+    };
+
+    function launchWhatsAppSignup() {
+
+      FB.login(
+        function (response) {
+
+          if (response.authResponse) {
+
+            const code = response.authResponse.code;
+
+            console.log('Authorization code:', code);
+
+            document.getElementById('status').innerText =
+              'Autorização concluída com sucesso.';
+
+          } else {
+
+            console.log('Embedded Signup cancelado ou não concluído.');
+
+            document.getElementById('status').innerText =
+              'Processo não concluído.';
+          }
+
+        },
+        {
+          config_id: '2361153174625723',
+          response_type: 'code',
+          override_default_response_type: true
+        }
+      );
+    }
+  </script>
+
+  <script
+    async
+    defer
+    crossorigin="anonymous"
+    src="https://connect.facebook.net/en_US/sdk.js">
+  </script>
+
 </body>
 </html>
